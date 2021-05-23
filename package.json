@@ -1,0 +1,44 @@
+{
+  "name": "object-resolver",
+  "description": "-",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "private": false,
+  "author": {
+    "name": "up-tri",
+    "email": "yaki-shake@up-tri.me",
+    "url": "https://up-tri.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:up-tri/object-resolver.git"
+  },
+  "bugs": {
+    "url": "https://github.com/up-tri/object-resolver/issues"
+  },
+  "homepage": "https://up-tri.me",
+  "scripts": {
+    "build": "tsc",
+    "clean": "tsc --clean",
+    "build:watch": "tsc --watch",
+    "build:prod": "tsc -p tsconfig.prod.json",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^26.6.3",
+    "prettier": "^2.3.0",
+    "ts-jest": "^26.5.6"
+  }
+}

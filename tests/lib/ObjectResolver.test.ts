@@ -27,6 +27,17 @@ describe('ObjectResolver: correct cases', () => {
     expect(resolver.resolve('FirstLevel[1]')).toEqual({ name: 'jiro' });
   });
 
+  it('should resolve first-level array with json selector', () => {
+    const doc = {
+      FirstLevel: [
+        { id: 123, name: 'taro' },
+        { id: 456, name: 'jiro' },
+      ],
+    };
+    const resolver = new ObjectResolver(doc);
+    expect(resolver.resolve('FirstLevel[]{"id": 123}')).toEqual({ id: 123, name: 'taro' });
+  });
+
   it('should resolve second-level object', () => {
     const doc = { FirstLevel: { SecondLevel: { name: 'taro' } } };
     const resolver = new ObjectResolver(doc);
@@ -57,7 +68,7 @@ describe('ObjectResolver: incorrect cases', () => {
     }).toThrow(NonExistNamespaceError);
   });
 
-  // known issue
+  // known issue: not support matrix
   it('cannot resolve 2d-array', () => {
     const doc = {
       FirstLevel: [
@@ -69,5 +80,31 @@ describe('ObjectResolver: incorrect cases', () => {
     expect(() => {
       resolver.resolve('FirstLevel[1][0]');
     }).toThrow(InvalidPathError);
+  });
+
+  it('throws error non-exist json selector(1)', () => {
+    const doc = {
+      FirstLevel: [
+        { id: 123, name: 'taro' },
+        { id: 456, name: 'jiro' },
+      ],
+    };
+    const resolver = new ObjectResolver(doc);
+    expect(() => {
+      resolver.resolve('FirstLevel[]{"id": 123, "name": "hanako"}');
+    }).toThrow(NonExistNamespaceError);
+  });
+
+  it('throws error non-exist json selector(2)', () => {
+    const doc = {
+      FirstLevel: [
+        { id: 123, name: 'taro' },
+        { id: 456, name: 'jiro' },
+      ],
+    };
+    const resolver = new ObjectResolver(doc);
+    expect(() => {
+      resolver.resolve('FirstLevel[]{"id": 123, "name": "taro", "height": 170}');
+    }).toThrow(NonExistNamespaceError);
   });
 });

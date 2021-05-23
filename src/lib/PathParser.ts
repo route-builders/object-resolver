@@ -1,10 +1,12 @@
+import { InvalidJSONError } from 'src/errors/InvalidJSONError';
 import { InvalidPathError } from 'src/errors/InvalidPathError';
 import { PathParserOption } from 'src/types/PathParserOption';
-import { Route } from 'src/types/Route';
+import { JSONSelector, Route } from 'src/types/Route';
 
 const NAMESPACE_DELIMITER = '.';
 const OBJECT_REGEX = /^([A-Za-z0-9_]+)$/;
 const ARRAY_REGEX = /^([A-Za-z0-9_]+)((?:\[\d+\])+)$/;
+const ARRAY_NEEDLE_REGEX = /^([A-Za-z0-9_]+)\[\](\{[\s\S]*?\})$/;
 
 const pathParserOptionDefault: PathParserOption = {
   namespace_delimiter: NAMESPACE_DELIMITER,
@@ -28,6 +30,19 @@ export class PathParser {
       if (objectMatcher && objectMatcher[1]) {
         routes.push({ name: objectMatcher[1] });
         continue;
+      }
+
+      const arrayNeedleMatcher = namespace.match(ARRAY_NEEDLE_REGEX);
+      if (arrayNeedleMatcher && arrayNeedleMatcher[1] && arrayNeedleMatcher[2]) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        try {
+          const name = arrayNeedleMatcher[1];
+          const selector: JSONSelector = JSON.parse(arrayNeedleMatcher[2]);
+          routes.push({ name, selector });
+          continue;
+        } catch (error) {
+          throw new InvalidJSONError(arrayNeedleMatcher[2]);
+        }
       }
 
       const arrayMatcher = namespace.match(ARRAY_REGEX);

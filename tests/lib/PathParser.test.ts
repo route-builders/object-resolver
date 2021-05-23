@@ -1,3 +1,4 @@
+import { InvalidJSONError } from '../../src/errors/InvalidJSONError';
 import { InvalidPathError } from '../../src/errors/InvalidPathError';
 import { PathParser } from '../../src/index';
 
@@ -36,6 +37,17 @@ describe('PathParser: correct cases', () => {
       {
         name: 'FirstLevel',
         index: 1,
+      },
+    ]);
+  });
+
+  it('should parse first-level array path with json needle.', () => {
+    const path = 'FirstLevel[]{"id": 123456}';
+    const parser = new PathParser();
+    expect(parser.parse(path)).toEqual([
+      {
+        name: 'FirstLevel',
+        selector: { id: 123456 },
       },
     ]);
   });
@@ -135,5 +147,13 @@ describe('PathParser: incorrect cases', () => {
     expect(() => {
       parser.parse(invalidPath);
     }).toThrow(InvalidPathError);
+  });
+
+  it('throws error with invalid json needle.', () => {
+    const path = 'FirstLevel[]{id: 123456}';
+    const parser = new PathParser();
+    expect(() => {
+      parser.parse(path);
+    }).toThrow(InvalidJSONError);
   });
 });

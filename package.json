@@ -1,8 +1,9 @@
 {
   "name": "@route-builders/object-resolver",
   "description": "-",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "private": false,
   "author": {
@@ -24,7 +25,8 @@
     "build:watch": "tsc --watch",
     "build:prod": "tsc -p tsconfig.prod.json",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "prepare": "tsc -p tsconfig.prod.json"
   },
   "dependencies": {
     "typescript": "^4.2.4"

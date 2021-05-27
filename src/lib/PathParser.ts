@@ -1,7 +1,7 @@
-import { InvalidJSONError } from 'src/errors/InvalidJSONError';
-import { InvalidPathError } from 'src/errors/InvalidPathError';
-import { PathParserOption } from 'src/types/PathParserOption';
-import { JSONSelector, Route } from 'src/types/Route';
+import { InvalidJSONError } from '../errors/InvalidJSONError';
+import { InvalidPathError } from '../errors/InvalidPathError';
+import { PathParserOption } from '../types/PathParserOption';
+import { JSONSelector, Route } from '../types/Route';
 
 const NAMESPACE_DELIMITER = '.';
 const OBJECT_REGEX = /^([A-Za-z0-9_]+)$/;

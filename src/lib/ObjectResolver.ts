@@ -1,10 +1,10 @@
-import { InvalidDocumentError } from 'src/errors/InvalidDocumentError';
-import { NonExistNamespaceError } from 'src/errors/NonExistNamespaceError';
-import { PathParser } from 'src/lib/PathParser';
-import { Document } from 'src/types/Document';
-import { ObjectResolverOption } from 'src/types/ObjectResolverOption';
-import { ResolvedDocument } from 'src/types/ResolvedDocument';
-import { JSONSelector } from 'src/types/Route';
+import { InvalidDocumentError } from '../errors/InvalidDocumentError';
+import { NonExistNamespaceError } from '../errors/NonExistNamespaceError';
+import { PathParser } from '../lib/PathParser';
+import { Document } from '../types/Document';
+import { ObjectResolverOption } from '../types/ObjectResolverOption';
+import { ResolvedDocument } from '../types/ResolvedDocument';
+import { JSONSelector } from '../types/Route';
 
 const objectResolverOptionDefault: ObjectResolverOption = {
   namespace_delimiter: '.',
